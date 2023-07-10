@@ -30,4 +30,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => '900399429495-g5jmt35k7ij1hilvoug78t1i34pq29l5.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'https://futurevalueinnovators.com/callback/google',
+    ],
+
+    'facebook' => [
+        'client_id' => '220195750698940',
+        'client_secret' => '86ec558bc00984fc77b2c737f68a66e8',
+        'redirect' => 'https://futurevalueinnovators.com/callback/facebook',
+    ],
+
 ];

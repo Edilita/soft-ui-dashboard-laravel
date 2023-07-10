@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
+
+use App\Http\Controllers\GoogleController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -21,13 +25,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('auth/google', [GoogleController::class, 'signInwithGoogle']);
+Route::get('callback/google', [GoogleController::class, 'callbackToGoogle']);
+
+Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook']);
+Route::get('callback/facebook', [FacebookController::class, 'handleFacebookCallback']);
+
+
+Route::get('aboutus', function () { return view('pages.aboutus'); })->name('aboutus');
+Route::get('whyjoinus', function () { return view('pages.whyjoinus'); })->name('whyjoinus');
+Route::get('services', function () { return view('pages.services'); })->name('services');
+Route::get('contactus', function () { return view('pages.contactus'); })->name('contactus');
+
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+
+	Route::get('/', [HomeController::class, 'main']);
+	Route::get('/main', [HomeController::class, 'main'])->name('main');
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -86,3 +101,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');
+
+Route::get('/session_alter', function () {
+    redirect('/login');
+})->name('session_alter');

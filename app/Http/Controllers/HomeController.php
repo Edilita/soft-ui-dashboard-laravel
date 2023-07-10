@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function main()
     {
-        return redirect('dashboard');
+        return view('pages.main');
     }
 }
